@@ -7,10 +7,17 @@
   },
   "private": true,
   "dependencies": {
+    "@aws-sdk/core": "^3.758.0",
+    "@aws-smithy/server-common": "^1.0.0-alpha.10",
+    "@aws-smithy/server-node": "^1.0.0-alpha.10",
     "@nestjs/common": "^10.0.2",
     "@nestjs/core": "^10.0.2",
     "@nestjs/platform-express": "^10.0.2",
     "@smithy/node-http-handler": "^4.0.3",
+    "@smithy/smithy-client": "^4.1.6",
+    "@smithy/util-base64": "^4.0.0",
+    "@smithy/util-body-length-node": "^4.0.0",
+    "@smithy/util-utf8": "^4.0.0",
     "axios": "^1.6.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0"
