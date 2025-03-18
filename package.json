@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "serve": "nx run homaio:serve",
+    "clean": "rm -r smithy-api/src/lib/*",
     "build": "nx run-many --all --target=build --parallel"
   },
   "private": true,
