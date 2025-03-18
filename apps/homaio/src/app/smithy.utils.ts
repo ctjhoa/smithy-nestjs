@@ -1,5 +1,5 @@
 import { type IncomingMessage } from 'http';
-import { Body, Delete, Get, Patch, Put, Post, Req } from '@nestjs/common';
+import { Delete, Get, Patch, Put, Post, Req } from '@nestjs/common';
 import { HttpRequest } from '@aws-sdk/protocol-http';
 import { convertRequest } from '@aws-smithy/server-node';
 import { UriPattern } from './uri-pattern';
@@ -76,7 +76,6 @@ export function smithyControllerFactory<T extends GenericSmithyHandler>(
           operationName,
           Object.getOwnPropertyDescriptor(controller.prototype, operationName)
         );
-        Body()(controller.prototype, operationName, 0);
         break;
       case 'PUT':
         Put(nestUri)(
@@ -84,7 +83,6 @@ export function smithyControllerFactory<T extends GenericSmithyHandler>(
           operationName,
           Object.getOwnPropertyDescriptor(controller.prototype, operationName)
         );
-        Body()(controller.prototype, operationName, 0);
         break;
       case 'PATCH':
         Patch(nestUri)(
@@ -92,7 +90,6 @@ export function smithyControllerFactory<T extends GenericSmithyHandler>(
           operationName,
           Object.getOwnPropertyDescriptor(controller.prototype, operationName)
         );
-        Body()(controller.prototype, operationName, 0);
         break;
       case 'DELETE': {
         Delete(nestUri)(
