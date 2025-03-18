@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "sources": ["model/"],
-  "outputDirectory": "src/lib",
+  "outputDirectory": "/tmp/nx-smithy",
   "maven": {
     "dependencies": [
       "software.amazon.smithy:smithy-aws-traits:1.55.0",
