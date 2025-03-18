@@ -1,7 +1,7 @@
 import { type IncomingMessage } from 'http';
 import { Delete, Get, Patch, Put, Post, Req } from '@nestjs/common';
 import { HttpRequest } from '@aws-sdk/protocol-http';
-import { convertRequest } from '@aws-smithy/server-node';
+import { convertRequest } from './converter';
 import { UriPattern } from './uri-pattern';
 
 type OperationConfig = {
@@ -48,7 +48,7 @@ export function smithyControllerFactory<T extends GenericSmithyHandler>(
     }
 
     controller.prototype[operationName] = function (
-      incomingMessage: IncomingMessage
+      incomingMessage: IncomingMessage & { rawBody: Buffer }
     ) {
       return this.handle(convertRequest(incomingMessage));
     };
