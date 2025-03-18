@@ -6,10 +6,10 @@
   "tags": [],
   "// targets": "to see all targets run: nx show project smithy-api --web",
   "targets": {
-    "//build": {
+    "build": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "smithy build",
+        "command": "smithy build && { [ -z \"$(ls -A src/lib/ 2>/dev/null)\" ] && rsync -a --exclude='.gitignore' /tmp/nx-smithy/ src/lib/ || echo \"Directory src/lib/ is not empty, skipping rsync\"; }",
         "cwd": "{projectRoot}"
       }
     }
