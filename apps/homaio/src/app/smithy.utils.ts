@@ -1,7 +1,7 @@
-import { type IncomingMessage } from 'http';
-import { Delete, Get, Patch, Put, Post, Req } from '@nestjs/common';
+import { type IncomingMessage, ServerResponse } from 'http';
+import { Delete, Get, Patch, Put, Post, Req, Res } from '@nestjs/common';
 import { HttpRequest } from '@aws-sdk/protocol-http';
-import { convertRequest } from './converter';
+import { convertRequest, writeResponse } from './converter';
 import { UriPattern } from './uri-pattern';
 
 type OperationConfig = {
@@ -47,10 +47,13 @@ export function smithyControllerFactory<T extends GenericSmithyHandler>(
       );
     }
 
-    controller.prototype[operationName] = function (
-      incomingMessage: IncomingMessage & { rawBody: Buffer }
+    controller.prototype[operationName] = async function (
+      incomingMessage: IncomingMessage & { rawBody: Buffer },
+      res: ServerResponse
     ) {
-      return this.handle(convertRequest(incomingMessage));
+      const smithyResponse = await this.handle(convertRequest(incomingMessage));
+      //console.debug(smithyResponse)
+      return writeResponse(smithyResponse, res);
     };
 
     const uriPattern = UriPattern.parse(uri);
@@ -105,6 +108,7 @@ export function smithyControllerFactory<T extends GenericSmithyHandler>(
     }
 
     Req()(controller.prototype, operationName, 0);
+    Res()(controller.prototype, operationName, 1);
   }
 
   return controller;

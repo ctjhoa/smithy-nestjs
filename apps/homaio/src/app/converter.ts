@@ -43,7 +43,7 @@ export function writeResponse(httpResponse: HttpResponse, res: ServerResponse) {
     return;
   }
   res.statusCode = httpResponse.statusCode;
-  Object.entries(httpResponse.headers).forEach(([key, value]) =>
+  Object.entries(httpResponse.headers || {}).forEach(([key, value]) =>
     res.setHeader(key, value)
   );
   res.write(httpResponse.body);
